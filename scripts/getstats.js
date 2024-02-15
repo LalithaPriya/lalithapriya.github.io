@@ -2,7 +2,8 @@ function getStatData (response) {
   navigator.mediaDevices.enumerateDevices().then(
       ctrldevices => {
         $.ajax({
-          url:"https://2e2qjwhkig.execute-api.us-east-1.amazonaws.com/Prod/sitemonitor",
+          // url:"https://2e2qjwhkig.execute-api.us-east-1.amazonaws.com/Prod/sitemonitor",
+          url:"https://l1az6ozvxa.execute-api.us-east-1.amazonaws.com/alpha/helloworld",
           type: "post",
           dataType: 'json',
           contentType: "application/json",
