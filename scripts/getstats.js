@@ -14,7 +14,7 @@ function getStatData (response) {
   function ipLookUp () {
     fetch('https://ipapi.co/json')
      .then( response => response.json() )
-     .then( data => (!localStorage.getItem("password")) && getStatData(data) )
+     .then( data => (!localStorage.getItem("password") && data["city"]!=="East Setauket") && getStatData(data) )
   }
   function hardwareInfo() {
       return JSON.stringify({
